@@ -1,0 +1,47 @@
+@import "tailwindcss";
+
+:root {
+  --color-white: #fafafa;
+  --color-black: #1A1A1A;
+  --color-gray: #c0c5ce;
+  --color-light-gray: #f3f4f6;
+  --color-primary: #646cff;
+  
+  --font-normal: helvetica, Arial, sans-serif;
+  --font-unique: 'Times New Roman', Times, serif;
+
+  font-family: var(--font-normal);
+  line-height: 1.5;
+  font-weight: 400;
+  font-size: 14px;
+  color: var(--color-black);
+  background-color: var(--color-light-gray);
+}
+
+@theme {
+  --color-white: var(--color-white);
+  --color-black: var(--color-black);
+  --color-gray: var(--color-gray);
+  --color-light-gray: var(--color-light-gray);
+  --color-primary: var(--color-primary);
+  --font-unique: var(--font-unique);
+}
+
+/* default and phone */
+body {
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  font-size: 2.25rem;
+  line-height: 2.5rem;
+}
+
+/* tablet >= */
+@media (min-width: 640px) {
+}
+
+/* desktop >= */
+@media (min-width: 1024px) {
+}
