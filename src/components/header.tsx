@@ -1,4 +1,4 @@
-import nytLogo from '../assets/nyt-big.svg';
+import nytLogo from '../assets/nyt-big.svg'
 
 export default function Header() {
   return (
@@ -18,5 +18,5 @@ export default function Header() {
         </div>
       </div>
     </header>
-  );
+  )
 }
