@@ -46,10 +46,10 @@ export interface NytSearchResponse {
   copyright: string
   response: {
     docs: Article[]
-  }
-  metadata: {
-    hits: number
-    offset: number
-    time: number
+    metadata: {
+      hits: number
+      offset: number
+      time: number
+    }
   }
 }
