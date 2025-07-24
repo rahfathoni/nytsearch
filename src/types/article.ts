@@ -20,7 +20,7 @@ export interface Article {
     kicker?: string
     print_headline?: string
   }
-  keywords?: {
+  keywords: {
     name: string
     value: string
     rank: number

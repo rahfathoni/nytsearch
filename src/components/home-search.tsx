@@ -41,7 +41,7 @@ export default function HomeSearch({
           />
           <input
             value={inputValue}
-            className="pl-10 pr-10 py-3 w-full rounded-md border-2 border-gray-300 text-base focus:border-primary focus:ring-primary focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed"
+            className="pl-10 pr-10 py-3 w-full bg-white rounded-md border-2 border-gray-300 text-base focus:border-primary focus:ring-primary focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed"
             type="text"
             placeholder="Search articles by keyword..."
             disabled={isLoading}

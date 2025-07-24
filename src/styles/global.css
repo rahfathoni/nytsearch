@@ -5,7 +5,9 @@
   --color-black: #1A1A1A;
   --color-gray: #c0c5ce;
   --color-light-gray: #f3f4f6;
+  --color-dark-gray: #444e5b;
   --color-primary: #646cff;
+  --color-danger: #f87171;
   
   --font-normal: helvetica, Arial, sans-serif;
   --font-unique: 'Times New Roman', Times, serif;
@@ -23,7 +25,9 @@
   --color-black: var(--color-black);
   --color-gray: var(--color-gray);
   --color-light-gray: var(--color-light-gray);
+  --color-dark-gray: var(--color-dark-gray);
   --color-primary: var(--color-primary);
+  --color-danger: var(--color-danger);
   --font-unique: var(--font-unique);
 }
 

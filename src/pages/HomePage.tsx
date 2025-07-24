@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from "react"
 import axios from "axios"
 import type { Article, NytSearchResponse } from "../types/article"
+import HomeArticles from "../components/home-articles"
 import HomeSearch from "../components/home-search"
 
 const NYTIMES_API_KEY = import.meta.env.VITE_NYTIMES_API_KEY as string
@@ -15,7 +16,7 @@ export default function HomePage() {
     offset: 0,
     totalData: 0, // maximum data 1000 data or 100 page default by api
   })
-  const { articles, isLoading, error, currentPage, searchQuery, totalData } = state
+  const { articles, isLoading, error, searchQuery, totalData } = state
   
   const fetchArticles = useCallback(async (query = "", page = 1) => {
     setState((prev) => ({ ...prev, isLoading: true, error: null }))
@@ -26,6 +27,7 @@ export default function HomePage() {
       const response = await axios.get("https://api.nytimes.com/svc/search/v2/articlesearch.json", {
         params: {
           q: query,
+          sort: query ? "relevance" : "best",
           page,
           'api-key': NYTIMES_API_KEY,
         },
@@ -85,21 +87,23 @@ export default function HomePage() {
           onClear={handleClearSearch}
         />
 
-        {/* temporary */}
-        {/* {articles.length > 0 ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {articles.map((article) => (
-               <pre key={article._id} className="text-sm whitespace-pre-wrap">
-                {JSON.stringify(article, null, 2)}
-              </pre>
-            ))}
-          </div>
-        ) : (
-          <div className="text-center text-gray-500">
-            {isLoading ? "Loading articles..." : "No articles found."}
+        {error && (
+          <div className="mt-6 p-4 bg-danger border border-red-800 rounded-lg">
+            <p className="text-white">Error: {error}</p>
           </div>
         )}
-        {error && <div className="text-center text-red-500">{error}</div>}   */}
+
+        <div className="mt-8">
+          {searchQuery && articles.length > 0 && !isLoading && (
+            <div className="mb-6">
+              <p className="text-gray-600">
+                {totalData} result{totalData !== 1 ? "s" : ""} found for "{searchQuery}"
+              </p>
+            </div>
+          )}
+
+          <HomeArticles articles={articles} isLoading={isLoading} />
+        </div>
       </div>
     </div>
   )
