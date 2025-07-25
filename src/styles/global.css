@@ -1,0 +1,53 @@
+@import "tailwindcss";
+
+:root {
+  --color-white: #fafafa;
+  --color-black: #1A1A1A;
+  --color-gray: #c0c5ce;
+  --color-light-gray: #f3f4f6;
+  --color-dark-gray: #444e5b;
+  --color-primary: #646cff;
+  --color-danger: #f87171;
+  
+  --font-normal: helvetica, Arial, sans-serif;
+  --font-unique: 'Times New Roman', Times, serif;
+
+  font-family: var(--font-normal);
+  line-height: 1.5;
+  font-weight: 400;
+  font-size: 0.875rem;
+  color: var(--color-black);
+  background: var(--color-light-gray);
+  background: linear-gradient(180deg,rgba(222, 222, 222, 1) 7%, rgba(243, 244, 246, 1) 64%, rgba(250, 250, 250, 1) 95%);
+}
+
+@theme {
+  --color-white: var(--color-white);
+  --color-black: var(--color-black);
+  --color-gray: var(--color-gray);
+  --color-light-gray: var(--color-light-gray);
+  --color-dark-gray: var(--color-dark-gray);
+  --color-primary: var(--color-primary);
+  --color-danger: var(--color-danger);
+  --font-unique: var(--font-unique);
+}
+
+/* default and phone */
+body {
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  line-height: 2.5rem;
+}
+
+/* tablet >= */
+@media (min-width: 640px) {
+}
+
+/* desktop >= */
+@media (min-width: 1024px) {
+}
