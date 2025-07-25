@@ -47,7 +47,7 @@ export default function HomeArticles({ articles, isLoading, onEndReached, hasMor
       {isLoading && (
         <div className="flex justify-center items-center py-6">
           <IconLoader2 className="animate-spin text-dark-gray" size={20} stroke={1.5} />
-          <span className="ml-2 text-primary font-bold">Loading more articles...</span>
+          <span className="ml-2 text-gray-500 font-bold">Loading more articles...</span>
         </div>
       )}
 
