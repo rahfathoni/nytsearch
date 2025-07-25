@@ -16,9 +16,9 @@ export default function ArticleCard({ article }: ArticleCardProps) {
 
   return (
     <div
-      className={`${
-        isValidUrl ? "cursor-pointer" : "cursor-default"} 
-        hover:shadow-lg transition-shadow duration-200 h-full flex flex-col rounded-[15px] border border-gray-200 bg-white text-black shadow`}
+      className={`${isValidUrl ? "cursor-pointer" : "cursor-default"} 
+        hover:shadow-2xl hover:-translate-y-1 hover:scale-[1.015] transition duration-300 ease-in-out 
+        h-full flex flex-col rounded-[15px] border border-gray-200 bg-white text-black shadow`}
       onClick={handleClick}
     >
       <div className="relative h-48 w-full">

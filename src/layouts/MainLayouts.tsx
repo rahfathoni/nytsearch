@@ -4,7 +4,7 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
   return (
     <>
       <Header />
-      <main className="mx-auto px-4 py-8 sm:px-8 lg:px-16">
+      <main className="mx-auto px-6 py-8 sm:px-12 lg:px-18">
         {children}
       </main>
     </>

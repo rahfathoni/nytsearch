@@ -17,8 +17,9 @@ export default function HomePage() {
     currentPage: 1,
     offset: 0,
     totalData: 0,
+    hasMoreData: true,
   })
-  const { articles, isLoading, error, searchQuery, totalData, currentPage } = state
+  const { articles, isLoading, error, searchQuery, totalData, currentPage, hasMoreData } = state
 
   const fetchArticles = useCallback(async (query = "", page = 1) => {
     setState((prev) => ({ ...prev, isLoading: true, error: null }))
@@ -36,13 +37,15 @@ export default function HomePage() {
       })
 
       const data: NytSearchResponse = response.data
+      const newArticles = data.response.docs
 
       setState((prev) => ({
         ...prev,
-        articles: page === 1 ? data.response.docs : [...prev.articles, ...data.response.docs],
+        articles: page === 1 ? newArticles : [...prev.articles, ...newArticles],
         currentPage: page,
         totalData: data.response.metadata.hits,
         offset: data.response.metadata.offset,
+        hasMoreData: newArticles && newArticles.length > 0,
         error: null,
       }))
     } catch (err: unknown) {
@@ -58,13 +61,29 @@ export default function HomePage() {
   }, [])
 
   const handleSearch = (query: string) => {
-    setState((prev) => ({ ...prev, searchQuery: query, currentPage: 1 }))
+    setState((prev) => ({
+      ...prev,
+      searchQuery: query,
+      currentPage: 1,
+      hasMoreData: true,
+    }))
     fetchArticles(query, 1)
   }
 
   const handleClearSearch = () => {
-    setState((prev) => ({ ...prev, searchQuery: "", currentPage: 1 }))
+    setState((prev) => ({
+      ...prev,
+      searchQuery: "",
+      currentPage: 1,
+      hasMoreData: true,
+    }))
     fetchArticles("", 1)
+  }
+
+  const handleEndReached = () => {
+    if (!isLoading && hasMoreData) {
+      fetchArticles(searchQuery, currentPage + 1)
+    }
   }
 
   useEffect(() => {
@@ -123,15 +142,11 @@ export default function HomePage() {
             </div>
           )}
 
-          {/* <HomeArticles articles={articles} isLoading={isLoading} /> */}
           <HomeArticles
             articles={articles}
             isLoading={isLoading}
-            onEndReached={() => {
-              if (!isLoading && articles.length < totalData) {
-                fetchArticles(searchQuery, currentPage + 1)
-              }
-            }}
+            hasMore={hasMoreData}
+            onEndReached={handleEndReached}
           />
         </div>
       </div>

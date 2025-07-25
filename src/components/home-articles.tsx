@@ -7,13 +7,14 @@ interface HomeArticlesProps {
   articles: Article[]
   isLoading: boolean
   onEndReached?: () => void
+  hasMore?: boolean
 }
 
-export default function HomeArticles({ articles, isLoading, onEndReached }: HomeArticlesProps) {
+export default function HomeArticles({ articles, isLoading, onEndReached, hasMore }: HomeArticlesProps) {
   const endRef = useRef<HTMLDivElement | null>(null)
 
   useEffect(() => {
-    if (!onEndReached || isLoading) return
+    if (!onEndReached || isLoading || !hasMore) return
 
     const handleScroll = () => {
       const scrollBottom = window.innerHeight + window.scrollY
@@ -25,8 +26,7 @@ export default function HomeArticles({ articles, isLoading, onEndReached }: Home
 
     window.addEventListener("scroll", handleScroll)
     return () => window.removeEventListener("scroll", handleScroll)
-  }, [onEndReached, isLoading])
-
+  }, [onEndReached, isLoading, hasMore])
 
   return (
     <>
@@ -48,6 +48,18 @@ export default function HomeArticles({ articles, isLoading, onEndReached }: Home
         <div className="flex justify-center items-center py-6">
           <IconLoader2 className="animate-spin text-dark-gray" size={20} stroke={1.5} />
           <span className="ml-2 text-primary font-bold">Loading more articles...</span>
+        </div>
+      )}
+
+      {!isLoading && !hasMore && (
+        <div className="text-center py-6 text-gray-500 font-medium">
+          — No more articles —
+        </div>
+      )}
+
+      {!isLoading && hasMore && (
+        <div className="text-center py-6 text-gray-500 text-md">
+          Scroll down for more articles ↓
         </div>
       )}
     </>

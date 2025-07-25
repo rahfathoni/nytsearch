@@ -3,7 +3,7 @@ import nytLogo from '../assets/nyt-big.svg'
 export default function Header() {
   return (
     <header className="bg-white border-b border-gray shadow-sm">
-      <div className="mx-auto px-4 py-4 sm:px-8 lg:px-16">
+      <div className="mx-auto px-6 py-4 sm:px-12 lg:px-18">
         <div className="flex items-center justify-left">
           <div className="flex items-center space-x-3">
             <img

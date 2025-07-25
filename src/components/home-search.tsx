@@ -31,7 +31,7 @@ export default function HomeSearch({
   }
 
   return (
-    <form onSubmit={handleSubmit} className="w-full max-w-2xl mx-auto">
+    <form onSubmit={handleSubmit} className="w-full max-w-3xl mx-auto">
       <div className="flex flex-col sm:flex-row sm:items-center gap-5">
         <div className="relative flex-1">
           <IconSearch
@@ -62,7 +62,9 @@ export default function HomeSearch({
         <button
           type="submit"
           disabled={isLoading}
-          className="w-full sm:w-auto px-6 py-3 text-lg rounded-md font-medium text-white bg-primary hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex justify-center items-center"
+          className="w-full sm:w-auto px-12 py-3 text-lg rounded-md font-medium text-white bg-primary 
+            disabled:opacity-50 disabled:cursor-not-allowed flex justify-center items-center cursor-pointer
+            hover:bg-blue-900 transition-colors hover:shadow-lg hover:scale-[1.03] duration-300 ease-in-out"
         >
           {isLoading ? (
             <IconLoader2 className="animate-spin" size={20} stroke={1.5} />
