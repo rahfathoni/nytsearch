@@ -1,3 +1,36 @@
+# The New York Times Article Search
+
+### Website URL
+
+.....
+
+Development start : Wednesday, 23 July 2025, 21.00 WIB
+
+## HOW TO RUN WEBSITE LOCALLY
+
+  1. In terminal or git bash, clone repository:
+      ```
+      git clone https://github.com/rahfathoni/nytsearch.git
+      ``` 
+  2. In terminal, install dependencies:
+      ```
+      npm install
+      ```
+  3. Create file .env with base from .env.template. then add your VITE_NYTIMES_API_KEY
+  4. You can get "New York Times API Key" from this site https://developer.nytimes.com/. If you need my Key, you can contact me.
+
+  5. In terminal, run website locally:
+      ```
+      npm run dev
+      ```
+
+
+
+
+
+
+
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.

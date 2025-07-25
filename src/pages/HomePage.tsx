@@ -3,6 +3,8 @@ import axios from "axios"
 import type { Article, NytSearchResponse } from "../types/article"
 import HomeArticles from "../components/home-articles"
 import HomeSearch from "../components/home-search"
+import { IconLoader2 } from "@tabler/icons-react"
+import nytLogo from '../assets/nyt-big.svg'
 
 const NYTIMES_API_KEY = import.meta.env.VITE_NYTIMES_API_KEY as string
 
@@ -14,14 +16,14 @@ export default function HomePage() {
     error: null as string | null,
     currentPage: 1,
     offset: 0,
-    totalData: 0, // maximum data 1000 data or 100 page default by api
+    totalData: 0,
   })
-  const { articles, isLoading, error, searchQuery, totalData } = state
-  
+  const { articles, isLoading, error, searchQuery, totalData, currentPage } = state
+
   const fetchArticles = useCallback(async (query = "", page = 1) => {
     setState((prev) => ({ ...prev, isLoading: true, error: null }))
 
-    await new Promise((resolve) => setTimeout(resolve, 300))
+    await new Promise((resolve) => setTimeout(resolve, 1000))
 
     try {
       const response = await axios.get("https://api.nytimes.com/svc/search/v2/articlesearch.json", {
@@ -38,7 +40,6 @@ export default function HomePage() {
       setState((prev) => ({
         ...prev,
         articles: page === 1 ? data.response.docs : [...prev.articles, ...data.response.docs],
-        isLoading: false,
         currentPage: page,
         totalData: data.response.metadata.hits,
         offset: data.response.metadata.offset,
@@ -71,15 +72,35 @@ export default function HomePage() {
   }, [fetchArticles])
 
   return (
-    <div>
-      <div className="mx-auto">
+    <div className="relative">
+      {isLoading && (
+        <div className="fixed inset-0 z-50 bg-white/70 flex items-center justify-center">
+          <div className="relative w-24 h-24">
+            <IconLoader2
+              className="absolute animate-spin text-dark-gray"
+              size={100}
+              stroke={1.5}
+            />
+            <img
+              src={nytLogo}
+              alt="nyt Logo"
+              className="absolute w-10 h-10 top-1/2 left-1/2"
+              style={{
+                transform: "translate(calc(-30%), calc(-30%))",
+              }}
+            />
+          </div>
+        </div>
+      )}
+
+      <div className="mx-auto relative z-0">
         <div className="text-center mb-8">
           <h1 className="font-bold mb-4 font-unique">The New York Times Article Search</h1>
           <p className="text-lg text-gray-600 mb-8">
             Search through our collection of articles by keywords
           </p>
         </div>
-        
+
         <HomeSearch
           searchQuery={searchQuery}
           isLoading={isLoading}
@@ -102,7 +123,16 @@ export default function HomePage() {
             </div>
           )}
 
-          <HomeArticles articles={articles} isLoading={isLoading} />
+          {/* <HomeArticles articles={articles} isLoading={isLoading} /> */}
+          <HomeArticles
+            articles={articles}
+            isLoading={isLoading}
+            onEndReached={() => {
+              if (!isLoading && articles.length < totalData) {
+                fetchArticles(searchQuery, currentPage + 1)
+              }
+            }}
+          />
         </div>
       </div>
     </div>

@@ -18,18 +18,16 @@ export default function ArticleCard({ article }: ArticleCardProps) {
     <div
       className={`${
         isValidUrl ? "cursor-pointer" : "cursor-default"} 
-        hover:shadow-lg transition-shadow duration-200 h-full flex flex-col rounded-lg border border-gray-200 bg-white text-black shadow`}
+        hover:shadow-lg transition-shadow duration-200 h-full flex flex-col rounded-[15px] border border-gray-200 bg-white text-black shadow`}
       onClick={handleClick}
     >
-      {article.multimedia?.default?.url && (
-        <div className="relative h-48 w-full">
-          <img
-            src={article.multimedia?.default?.url || imageNotFound}
-            alt={article.multimedia.caption || "Image not found"}
-            className="w-full h-full rounded-t-[15px] object-cover"
-          />
-        </div>
-      )}
+      <div className="relative h-48 w-full">
+        <img
+          src={article.multimedia?.default?.url || imageNotFound}
+          alt={article.multimedia?.caption || "Image not found"}
+          className="w-full h-full rounded-t-[15px] object-cover"
+        />
+      </div>
 
       <div className="p-4 flex-1">
         <div className="mb-2">
