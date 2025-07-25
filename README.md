@@ -1,9 +1,9 @@
 # The New York Times Article Search
 
 ### Website URL
-
-.....
-
+```
+  https://nytsearch-fathoni.vercel.app/
+```
 Development start : Wednesday, 23 July 2025, 21.00 WIB
 
 ## HOW TO RUN WEBSITE LOCALLY
