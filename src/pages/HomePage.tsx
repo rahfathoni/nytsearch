@@ -3,12 +3,14 @@ import axios from "axios"
 import type { Article, NytSearchResponse } from "../types/article"
 import HomeArticles from "../components/home-articles"
 import HomeSearch from "../components/home-search"
-import { IconLoader2 } from "@tabler/icons-react"
-import nytLogo from '../assets/nyt-big.svg'
 
 const NYTIMES_API_KEY = import.meta.env.VITE_NYTIMES_API_KEY as string
 
-export default function HomePage() {
+interface HomePageProps {
+  setMainLoading: (loading: boolean) => void
+}
+
+export default function HomePage({ setMainLoading }: HomePageProps) {
   const [state, setState] = useState({
     articles: [] as Article[],
     searchQuery: "",
@@ -22,6 +24,7 @@ export default function HomePage() {
   const { articles, isLoading, error, searchQuery, totalData, currentPage, hasMoreData } = state
 
   const fetchArticles = useCallback(async (query = "", page = 1) => {
+    setMainLoading(true)
     setState((prev) => ({ ...prev, isLoading: true, error: null }))
 
     await new Promise((resolve) => setTimeout(resolve, 1000))
@@ -56,9 +59,10 @@ export default function HomePage() {
         error: errorMessage 
       }))
     } finally {
+      setMainLoading(false)
       setState((prev) => ({ ...prev, isLoading: false }))
     }
-  }, [])
+  }, [setMainLoading])
 
   const handleSearch = (query: string) => {
     setState((prev) => ({
@@ -92,26 +96,6 @@ export default function HomePage() {
 
   return (
     <div className="relative">
-      {isLoading && (
-        <div className="fixed inset-0 z-50 bg-white/70 flex items-center justify-center">
-          <div className="relative w-24 h-24">
-            <IconLoader2
-              className="absolute animate-spin text-dark-gray"
-              size={100}
-              stroke={1.5}
-            />
-            <img
-              src={nytLogo}
-              alt="nyt Logo"
-              className="absolute w-10 h-10 top-1/2 left-1/2"
-              style={{
-                transform: "translate(calc(-30%), calc(-30%))",
-              }}
-            />
-          </div>
-        </div>
-      )}
-
       <div className="mx-auto relative z-0">
         <div className="text-center mb-8">
           <h1 className="font-bold mb-4 font-unique">The New York Times Article Search</h1>
